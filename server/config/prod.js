@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI:process.env.MONGO_URI
+    mongoURI: 'mongodb+srv://dbAdmin:admin@moviestudio.rjb19.mongodb.net/MovieStudio?retryWrites=true&w=majority'
 }

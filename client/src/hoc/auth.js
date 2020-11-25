@@ -5,10 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function (SpecificComponent, option, adminRoute = null) {
     function AuthenticationCheck(props) {
-
         let user = useSelector(state => state.user);
         const dispatch = useDispatch();
-
         useEffect(() => {
             //To know my current status, send Auth request 
             dispatch(auth()).then(response => {
@@ -31,9 +29,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
                     }
                 }
             })
-
         }, [])
-
         return (
             <SpecificComponent {...props} user={user} />
         )
