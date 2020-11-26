@@ -1,54 +1,73 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../../_actions/user_actions';
-import { withRouter } from 'react-router-dom';
-function LoginPage(props) {
-    const dispatch = useDispatch();
-    const [Email, setEmail] = useState("")
-    const [Password, setPassword] = useState("")
+import React, { useEffect, useState } from 'react'
+import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../config';
+import MainImage from './Sections/MainImage';
+import axios from 'axios';
+import GridCards from '../Commons/GridCards';
+import { Row } from 'antd';
 
-    const onEmailHandler = (event) => {
-        setEmail(event.currentTarget.value)
-    }
-    const onPasswordHandler = (event) => {
-        setPassword(event.currentTarget.value)
-    }
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-        let body = {
-            email: Email,
-            password: Password
-        }
-        dispatch(loginUser(body))
+function LandingPage() {
+
+    const [Movies, setMovies] = useState([])
+    const [MainMovieImage, setMainMovieImage] = useState(null)
+    const [CurrentPage, setCurrentPage] = useState(0)
+    useEffect(() => {
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        fetchMovies(endpoint)
+    }, [])
+
+    const fetchMovies = (endpoint) => {
+        fetch(endpoint)
+            .then(response => response.json())
             .then(response => {
-                if (response.payload.loginSuccess) {
-                    props.history.push('/')
-                } else {
-                    alert('Error˝')
-                }
+                console.log(response)
+                setMovies([...Movies, ...response.results])
+                setMainMovieImage(response.results[0])
+                setCurrentPage(response.page)
             })
+    }
+
+    const loadMoreItems = () => {
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
+        fetchMovies(endpoint)
     }
 
 
     return (
-        <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh'
-        }}>
-            <form style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}
-            >
-                <label>Email</label>
-                <input type="email" value={Email} onChange={onEmailHandler} />
-                <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} />
-                <br />
-                <button type="submit">
-                    Login
-                </button>
-            </form>
+        <div style={{ width: '100%', margin: '0' }}>
+            {/* Main Image */}
+            {MainMovieImage &&
+                <MainImage
+                    image={`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`}
+                    title={MainMovieImage.original_title}
+                    text={MainMovieImage.overview}
+                />
+            }
+
+
+            <div style={{ width: '85%', margin: '1rem auto' }}>
+
+                <h2>Movies by latest</h2>
+                <hr />
+                {/* Movie Grid Cards */}
+                <Row gutter={[16, 16]} >
+                    {Movies && Movies.map((movie, index) => (
+                        <React.Fragment key={index}>
+                            <GridCards
+                                landingPage
+                                image={movie.poster_path ?
+                                    `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
+                                movieId={movie.id}
+                                movieName={movie.original_title}
+                            />
+                        </React.Fragment>
+                    ))}
+                </Row>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button onClick={loadMoreItems}> Load More</button>
+            </div>
         </div>
     )
 }
 
-export default withRouter(LoginPage)
+export default LandingPage
