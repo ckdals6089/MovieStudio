@@ -2,12 +2,11 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const config = require('./config/div');
+const config = require('./config/dev');
 const { auth } = require('./middleware/auth');
 const { User } = require("./models/User");
 
 //application/x-www-form-urlencoded 
-app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -24,9 +23,7 @@ mongoose.connect(config.mongoURI, {
 
 
 app.get('/', (req, res) => res.send('Hello World!~~ '))
-
 app.get('/api/hello', (req, res) => res.send('Hello World!~~ '))
-
 app.post('/api/users/register', (req, res) => {
 
 
@@ -42,7 +39,6 @@ app.post('/api/users/register', (req, res) => {
 })
 
 app.post('/api/users/login', (req, res) => {
-    // console.log('ping')
     //find the email from database
     User.findOne({ email: req.body.email }, (err, user) => {
         // console.log('user', user)
@@ -52,8 +48,7 @@ app.post('/api/users/login', (req, res) => {
                 message: "The system connot find the user"
             })
         }
-        //the email is contained DB, checked password
-        //요청된 이메일이 데이터 베이스에 있다면 비밀번호가 맞는 비밀번호 인지 확인.
+        //if the email is saved DB, checked password
         user.comparePassword(req.body.password, (err, isMatch) => {
             // console.log('err',err)
             // console.log('isMatch',isMatch)
