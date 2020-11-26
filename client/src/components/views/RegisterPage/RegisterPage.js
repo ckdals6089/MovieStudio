@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_actions';
-import Axios from 'axios';
 import { withRouter } from 'react-router-dom';
 function RegisterPage(props) {
   const dispatch = useDispatch();
@@ -11,30 +10,24 @@ function RegisterPage(props) {
   const [Password, setPassword] = useState("")
   const [ConfirmPassword, setConfirmPassword] = useState("")
 
-
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value)
   }
-
   const onNameHandler = (event) => {
     setName(event.currentTarget.value)
   }
-
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value)
   }
-
   const onConfirmPasswordHandler = (event) => {
     setConfirmPassword(event.currentTarget.value)
   }
-
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
     if (Password !== ConfirmPassword) {
       return alert('must be mached Password and Confirm Password')
     }
-
     let body = {
       email: Email,
       password: Password,
