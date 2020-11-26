@@ -4,8 +4,10 @@
   "description": "Movie Studio",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node server/index.js",
-    "backend": "nodemon server/index.js"
+    "start": "node server/index.js",
+    "backend": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
   },
   "repository": {
     "type": "git",
