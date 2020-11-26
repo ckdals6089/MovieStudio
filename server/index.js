@@ -1,95 +1,55 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const config = require('./config/dev');
-const { auth } = require('./middleware/auth');
-const { User } = require("./models/User");
+const express = require("express");
+const app = express();
+const path = require("path");
+const cors = require('cors')
 
-//application/x-www-form-urlencoded 
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
+const config = require("./config/dev.js");
+const mongoose = require("mongoose");
+const connect = mongoose.connect(config.mongoURI,
+    {
+        useNewUrlParser: true, useUnifiedTopology: true,
+        useCreateIndex: true, useFindAndModify: false
+    })
+    .then(() => console.log('MongoDB Connected...'))
+    .catch(err => console.log(err));
+
+app.use(cors())
+
+//to not get any deprecation warning or error
+//support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
 //to get json data
 // support parsing of application/json type post data
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const mongoose = require('mongoose')
-mongoose.connect(config.mongoURI, {
-    useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
-}).then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log(err))
+app.use('/api/users', require('./routes/users'));
+app.use('/api/favorite', require('./routes/favorite'));
+app.use('/api/comment', require('./routes/comment'));
+app.use('/api/like', require('./routes/like'));
 
 
-app.get('/', (req, res) => res.send('MongoDB Connected...'))
-app.post('/api/users/register', (req, res) => {
-    const user = new User(req.body)
-    user.save((err, userInfo) => {
-        if (err) return res.json({ success: false, err })
-        return res.status(200).json({
-            success: true
-        })
-    })
-})
+//use this to show the image you have in node js server to client (react js)
+//https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
+app.use('/uploads', express.static('uploads'));
 
-app.post('/api/users/login', (req, res) => {
-    //find the email from database
-    User.findOne({ email: req.body.email }, (err, user) => {
-        // console.log('user', user)
-        if (!user) {
-            return res.json({
-                loginSuccess: false,
-                message: "The system connot find the user"
-            })
-        }
-        //if the email is saved DB, checked password
-        user.comparePassword(req.body.password, (err, isMatch) => {
-            // console.log('err',err)
-            // console.log('isMatch',isMatch)
-            if (!isMatch)
-                return res.json({ loginSuccess: false, message: "Please Check the password again!" })
-            //if the password is mached, create a token
-            user.generateToken((err, user) => {
-                if (err) return res.status(400).send(err);
-                // Save the created token in a storage 
-                res.cookie("x_auth", user.token)
-                    .status(200)
-                    .json({ loginSuccess: true, userId: user._id })
-            })
-        })
-    })
-})
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
 
+    // Set static folder
+    app.use(express.static("client/build"));
 
-// role 1 admin    role 2 specific department admin
-// role 0 -> user   if role is not role 0, admin
-app.get('/api/users/auth', auth, (req, res) => {
-    //if Authentication is true
-    res.status(200).json({
-        _id: req.user._id,
-        isAdmin: req.user.role === 0 ? false : true,
-        isAuth: true,
-        email: req.user.email,
-        name: req.user.name,
-        lastname: req.user.lastname,
-        role: req.user.role,
-        image: req.user.image
-    })
-})
+    // index.html for all page routes
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    });
+}
 
-app.get('/api/users/logout', auth, (req, res) => {
-    // console.log('req.user', req.user)
-    User.findOneAndUpdate({ _id: req.user._id },
-        { token: "" }
-        , (err, user) => {
-            if (err) return res.json({ success: false, err });
-            return res.status(200).send({
-                success: true
-            })
-        })
-})
+const port = process.env.PORT || 5000
 
-const port = 3000
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => {
+    console.log(`Server Running at ${port}`)
+});
