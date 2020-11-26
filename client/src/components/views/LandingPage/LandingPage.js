@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../config';
 import MainImage from './Sections/MainImage';
-import axios from 'axios';
 import GridCards from '../Commons/GridCards';
+import axios from 'axios';
 import { Row } from 'antd';
 
 function LandingPage() {
@@ -10,13 +10,16 @@ function LandingPage() {
     const [Movies, setMovies] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState(null)
     const [CurrentPage, setCurrentPage] = useState(0)
+
+    //difine endPoint for access movie DB with API URL and API KEY
     useEffect(() => {
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-        fetchMovies(endpoint)
+        const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        fetchMovies(endPoint)
     }, [])
 
-    const fetchMovies = (endpoint) => {
-        fetch(endpoint)
+    //if success to fetch movies, update useState(Movies, MainMovieImage, CurrentPage)
+    const fetchMovies = (endPoint) => {
+        fetch(endPoint)
             .then(response => response.json())
             .then(response => {
                 console.log(response)
@@ -26,15 +29,17 @@ function LandingPage() {
             })
     }
 
+    //declare LoadMore Moives 
     const loadMoreItems = () => {
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
-        fetchMovies(endpoint)
+        const endPoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
+        fetchMovies(endPoint)
     }
 
 
     return (
         <div style={{ width: '100%', margin: '0' }}>
             {/* Main Image */}
+            {/* If MainMovieIamge is true, display MainImage on lfandingPage*/}
             {MainMovieImage &&
                 <MainImage
                     image={`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`}
@@ -42,10 +47,7 @@ function LandingPage() {
                     text={MainMovieImage.overview}
                 />
             }
-
-
             <div style={{ width: '85%', margin: '1rem auto' }}>
-
                 <h2>Movies by latest</h2>
                 <hr />
                 {/* Movie Grid Cards */}
@@ -63,6 +65,7 @@ function LandingPage() {
                     ))}
                 </Row>
             </div>
+            {/* Button for extending Movie list */}
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button onClick={loadMoreItems}> Load More</button>
             </div>
