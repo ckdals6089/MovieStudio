@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE } from '../../config'
 import GridCards from '../Commons/GridCards';
-import MainImage from '../../views/LandingPage/Sections/MainImage';
+import MainImage from '../Commons/MainImage';
 import MovieInfo from './Sections/MovieInfo';
 function MovieDetailPage(props) {
 
