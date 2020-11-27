@@ -5,22 +5,20 @@ import { useSelector } from 'react-redux';
 
 function LikeDislikes(props) {
     const user = useSelector(state => state.user)
+
     const [Likes, setLikes] = useState(0)
     const [Dislikes, setDislikes] = useState(0)
     const [LikeAction, setLikeAction] = useState(null)
     const [DislikeAction, setDislikeAction] = useState(null)
-
     let variable = { commentId: props.commentId, userId: props.userId }
 
     useEffect(() => {
         Axios.post('/api/like/getLikes', variable)
             .then(response => {
                 console.log('getLikes', response.data)
-
                 if (response.data.success) {
                     //How many likes does this video or comment have 
                     setLikes(response.data.likes.length)
-
                     //if I already click this like button or not 
                     response.data.likes.map(like => {
                         if (like.userId === props.userId) {
@@ -31,7 +29,6 @@ function LikeDislikes(props) {
                     alert('Failed to get likes')
                 }
             })
-
         Axios.post('/api/like/getDislikes', variable)
             .then(response => {
                 console.log('getDislike', response.data)
@@ -48,7 +45,6 @@ function LikeDislikes(props) {
                     alert('Failed to get dislikes')
                 }
             })
-
     }, [])
 
 
@@ -60,7 +56,6 @@ function LikeDislikes(props) {
             Axios.post('/api/like/upLike', variable)
                 .then(response => {
                     if (response.data.success) {
-
                         setLikes(Likes + 1)
                         setLikeAction('liked')
                         //If dislike button is already clicked
@@ -84,8 +79,8 @@ function LikeDislikes(props) {
                 })
         }
     }
-
     const onDisLike = () => {
+
         if (user.userData && !user.userData.isAuth) {
             return alert('Please Log in first');
         }
@@ -93,6 +88,7 @@ function LikeDislikes(props) {
             Axios.post('/api/like/unDisLike', variable)
                 .then(response => {
                     if (response.data.success) {
+
                         setDislikes(Dislikes - 1)
                         setDislikeAction(null)
                     } else {
@@ -116,7 +112,6 @@ function LikeDislikes(props) {
                 })
         }
     }
-
     return (
         <React.Fragment>
             <span key="comment-basic-like">
