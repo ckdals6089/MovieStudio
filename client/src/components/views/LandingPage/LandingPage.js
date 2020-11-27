@@ -4,9 +4,10 @@ import MainImage from '../Commons/MainImage';
 import GridCards from '../Commons/GridCards';
 import axios from 'axios';
 import { Row } from 'antd';
+import { useSelector } from "react-redux";
+
 
 function LandingPage() {
-
     const [Movies, setMovies] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState(null)
     const [CurrentPage, setCurrentPage] = useState(0)

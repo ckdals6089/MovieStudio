@@ -23,7 +23,7 @@ function App(props) {
             <Route exact path="/" component={Auth(LandingPage, null)} />
             <Route exact path="/login" component={Auth(LoginPage, false)} />
             <Route exact path="/register" component={Auth(RegisterPage, false)} />
-            <Route exact path="/movie/:movieId" render={(props) => <MovieDetail {...props} />} />
+            <Route exact path="/movie/:movieId" component={(props) => <MovieDetail {...props} />} />
           </Switch>
         </div>
         <Footer />

@@ -6,6 +6,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE } from '../../config'
 import GridCards from '../Commons/GridCards';
 import MainImage from '../Commons/MainImage';
 import MovieInfo from './Sections/MovieInfo';
+import LikeDislikes from './Sections/LikeDislikes';
 function MovieDetailPage(props) {
 
     const movieId = props.match.params.movieId
@@ -26,9 +27,7 @@ function MovieDetailPage(props) {
 
         axios.post('/api/comment/getComments', movieVariable)
             .then(response => {
-                console.log(response)
                 if (response.data.success) {
-                    console.log('response.data.comments', response.data.comments)
                     setCommentLists(response.data.comments)
                 } else {
                     alert('Failed to get comments Info')
@@ -46,7 +45,6 @@ function MovieDetailPage(props) {
         fetch(endpoint)
             .then(result => result.json())
             .then(result => {
-                console.log(result)
                 setMovie(result)
                 setLoadingForMovie(false)
 
@@ -54,7 +52,6 @@ function MovieDetailPage(props) {
                 fetch(endpointForCasts)
                     .then(result => result.json())
                     .then(result => {
-                        console.log(result)
                         setCasts(result.cast)
                     })
 
@@ -114,7 +111,9 @@ function MovieDetailPage(props) {
                     </Row>
                 }
                 <br />
-
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <LikeDislikes video videoId={movieId} userId={localStorage.getItem('userId')} />
+                </div>
             </div>
 
         </div>
