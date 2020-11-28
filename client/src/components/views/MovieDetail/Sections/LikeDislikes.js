@@ -10,14 +10,19 @@ function LikeDislikes(props) {
     const [Dislikes, setDislikes] = useState(0)
     const [LikeAction, setLikeAction] = useState(null)
     const [DislikeAction, setDislikeAction] = useState(null)
-    let variable = { commentId: props.commentId, userId: props.userId }
+    let variable = {};
 
+    if (props.movie) {
+        variable = { movieId: props.movieId, userId: props.userId }
+    } else {
+        variable = { commentId: props.commentId, userId: props.userId }
+    }
     useEffect(() => {
         Axios.post('/api/like/getLikes', variable)
             .then(response => {
                 console.log('getLikes', response.data)
                 if (response.data.success) {
-                    //How many likes does this video or comment have 
+                    //How many likes does this movie or comment have 
                     setLikes(response.data.likes.length)
                     //if I already click this like button or not 
                     response.data.likes.map(like => {
@@ -33,7 +38,7 @@ function LikeDislikes(props) {
             .then(response => {
                 console.log('getDislike', response.data)
                 if (response.data.success) {
-                    //How many likes does this video or comment have 
+                    //How many likes does this movie or comment have 
                     setDislikes(response.data.dislikes.length)
                     //if I already click this like button or not 
                     response.data.dislikes.map(dislike => {
@@ -79,8 +84,8 @@ function LikeDislikes(props) {
                 })
         }
     }
-    const onDisLike = () => {
 
+    const onDisLike = () => {
         if (user.userData && !user.userData.isAuth) {
             return alert('Please Log in first');
         }
@@ -88,7 +93,6 @@ function LikeDislikes(props) {
             Axios.post('/api/like/unDisLike', variable)
                 .then(response => {
                     if (response.data.success) {
-
                         setDislikes(Dislikes - 1)
                         setDislikeAction(null)
                     } else {
