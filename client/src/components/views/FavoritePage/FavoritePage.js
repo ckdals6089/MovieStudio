@@ -37,18 +37,10 @@ function FavoritePage() {
     }
 
     const renderCards = Favorites.map((favorite, index) => {
-        const content = (
-            <div>
-                {favorite.moviePost ?
-                    <img src={`${IMAGE_BASE_URL}w500${favorite.moviePost}`} /> : "no image"}
-                }
-            </div>
-        )
-
         return <tr key={index}>
-            <Popover content={content} title={`${favorite.movieTitle}`} >
-                <td>{favorite.movieTitle}</td>
-            </Popover>
+            <td>{favorite.moviePost ?
+                <img src={`${IMAGE_BASE_URL}w300${favorite.moviePost}`} /> : "no image"}</td>
+            <td>{favorite.movieTitle}</td>
             <td>{favorite.movieRunTime} mins</td>
             <td><button onClick={() => onClickDelete(favorite.movieId, favorite.userFrom)}>Remove</button></td>
         </tr>
@@ -61,6 +53,7 @@ function FavoritePage() {
             <table>
                 <thead>
                     <tr>
+                        <th>Movie Poster</th>
                         <th>Movie Title</th>
                         <th>Movie RunTime</th>
                         <td>Remove from favorites</td>

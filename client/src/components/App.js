@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react';
 import { Route, Switch } from "react-router-dom";
-import Auth from "../hoc/auth";
+import Auth from "../hoc/auth.js";
 // pages for this product
 import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
-import NavBar from "./views/NavBar/NavBar";
-import Footer from "./views/Footer/Footer"
-import MovieDetail from "./views/MovieDetail/MovieDetail";
-import FavoritePage from "./views/FavoritePage/FavoritePage";
+import NavBar from "./views/NavBar/NavBar.js";
+import Footer from "./views/Footer/Footer.js"
+import MovieDetail from "./views/MovieDetail/MovieDetail.js";
+import FavoritePage from "./views/FavoritePage/FavoritePage.js";
 
 function App() {
   return (
