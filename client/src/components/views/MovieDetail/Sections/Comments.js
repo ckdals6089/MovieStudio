@@ -9,6 +9,7 @@ const { Title } = Typography;
 function Comments(props) {
     const user = useSelector(state => state.user)
     const [Comment, setComment] = useState("")
+
     const handleChange = (e) => {
         setComment(e.currentTarget.value)
     }
@@ -33,6 +34,7 @@ function Comments(props) {
                 }
             })
     }
+
     return (
         <div>
             <br />

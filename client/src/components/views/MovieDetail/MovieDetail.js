@@ -11,8 +11,8 @@ import MovieInfo from './Sections/MovieInfo';
 import Favorite from './Sections/Favorite';
 
 function MovieDetailPage(props) {
-
     const movieId = props.match.params.movieId
+    console.log(props.match)
     const [Movie, setMovie] = useState([])
     const [Casts, setCasts] = useState([])
     const [CommentLists, setCommentLists] = useState([])
@@ -22,6 +22,7 @@ function MovieDetailPage(props) {
     const movieVariable = {
         movieId: movieId
     }
+
     useEffect(() => {
         let endpointForMovieInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
         fetchDetailInfo(endpointForMovieInfo)
@@ -111,9 +112,7 @@ function MovieDetailPage(props) {
                 </div>
                 {/* Comments */}
                 <Comments movieTitle={Movie.original_title} CommentLists={CommentLists} postId={movieId} refreshFunction={updateComment} />
-
             </div>
-
         </div>
     )
 }
