@@ -8,7 +8,7 @@ function Footer() {
             flexDirection: 'column', alignItems: 'center',
             justifyContent: 'center', fontSize: '1rem'
         }}>
-            <p> Create By BEN  <Icon type="smile" /></p>
+            <p> Created By BEN  <Icon type="smile" /></p>
         </div>
     )
 }
