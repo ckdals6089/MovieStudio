@@ -47,7 +47,7 @@ function FavoritePage() {
     })
 
     return (
-        <div style={{ width: '85%', margin: '3rem auto' }}>
+        <div className="favoriteDiv">
             <h2> Favorite Movies </h2>
             <hr />
             <table>

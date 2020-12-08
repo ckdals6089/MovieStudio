@@ -1,13 +1,10 @@
 import React from 'react'
 import { Icon } from 'antd';
+import './footer.css';
 
 function Footer() {
     return (
-        <div style={{
-            height: '80px', display: 'flex',
-            flexDirection: 'column', alignItems: 'center',
-            justifyContent: 'center', fontSize: '1rem'
-        }}>
+        <div className="footerdiv">
             <p> Created By BEN  <Icon type="smile" /></p>
         </div>
     )

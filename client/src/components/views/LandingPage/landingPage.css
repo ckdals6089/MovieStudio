@@ -1,0 +1,12 @@
+.landingPageDiv {
+  width: 100%;
+  margin: 0;
+}
+.landingPageMoiveList {
+  width: 85%;
+  margin: 1rem auto;
+}
+.landingPageLoadMore {
+  display: flex;
+  justify-content: center;
+}

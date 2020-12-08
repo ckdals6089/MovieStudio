@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Icon, Input, Button, Checkbox, Typography } from 'antd';
 import { useDispatch } from "react-redux";
+import './loginPage.css'
 
 const { Title } = Typography;
 
@@ -82,12 +83,12 @@ function LoginPage(props) {
           <div className="app">
 
             <Title level={2}>Log In</Title>
-            <form onSubmit={handleSubmit} style={{ width: '350px' }}>
+            <form onSubmit={handleSubmit} className="loginPageForm">
 
               <Form.Item required>
                 <Input
                   id="email"
-                  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type="user" className="loginPageInput" />}
                   placeholder="Enter your email"
                   type="email"
                   value={values.email}
@@ -105,7 +106,7 @@ function LoginPage(props) {
               <Form.Item required>
                 <Input
                   id="password"
-                  prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type="lock" className="loginPageInput" />}
                   placeholder="Enter your password"
                   type="password"
                   value={values.password}
@@ -121,12 +122,12 @@ function LoginPage(props) {
               </Form.Item>
 
               {formErrorMessage && (
-                <label ><p style={{ color: '#ff0000bf', fontSize: '0.7rem', border: '1px solid', padding: '1rem', borderRadius: '10px' }}>{formErrorMessage}</p></label>
+                <label ><p className="loginFormP">{formErrorMessage}</p></label>
               )}
 
               <Form.Item>
                 <Checkbox id="rememberMe" onChange={handleRememberMe} checked={rememberMe} >Remember me</Checkbox>
-                <a className="login-form-forgot" href="/reset_user" style={{ float: 'right' }}>
+                <a className="login-form-forgot" href="/reset_user" className="loginFromItem">
                   forgot password
                   </a>
                 <div>

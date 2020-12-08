@@ -5,7 +5,7 @@ import GridCards from '../Commons/GridCards';
 import axios from 'axios';
 import { Row } from 'antd';
 import { useSelector } from "react-redux";
-
+import './landingPage.css';
 
 function LandingPage() {
     const [Movies, setMovies] = useState([])
@@ -37,7 +37,7 @@ function LandingPage() {
 
 
     return (
-        <div style={{ width: '100%', margin: '0' }}>
+        <div className="landingPageDiv">
             {/* Main Image */}
             {/* If MainMovieIamge is true, display MainImage on lfandingPage*/}
             {MainMovieImage &&
@@ -47,7 +47,7 @@ function LandingPage() {
                     text={MainMovieImage.overview}
                 />
             }
-            <div style={{ width: '85%', margin: '1rem auto' }}>
+            <div className="landingPageMoiveList">
                 <h2>Movies by latest</h2>
                 <hr />
                 {/* Movie Grid Cards */}
@@ -66,7 +66,7 @@ function LandingPage() {
                 </Row>
             </div>
             {/* Button for extending Movie list */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="landingPageLoadMore">
                 <button onClick={loadMoreItems}> Load More</button>
             </div>
         </div>

@@ -1,13 +1,15 @@
 import React from 'react'
 import { Col } from 'antd';
+import './gridCard.css';
+
 function GridCards(props) {
 
     if (props.landingPage) {
         return (
             <Col lg={6} md={8} xs={24}>
-                <div style={{ position: 'relative' }}>
+                <div className="grdiCardDiv">
                     <a href={`/movie/${props.movieId}`} >
-                        <img style={{ width: '100%', height: '320px' }} src={props.image} alt={props.movieName} />
+                        <img className="gridCardImage" src={props.image} alt={props.movieName} />
                     </a>
                 </div>
             </Col >
@@ -15,10 +17,8 @@ function GridCards(props) {
     } else {
         return (
             <Col lg={6} md={8} xs={24}>
-                <div style={{ position: 'relative' }}>
-
-                    <img style={{ width: '100%', height: '320px' }} src={props.image} alt={props.characterName} />
-
+                <div className="grdiCardDiv">
+                    <img className="gridCardImage" src={props.image} alt={props.characterName} />
                 </div>
             </Col>
         )
