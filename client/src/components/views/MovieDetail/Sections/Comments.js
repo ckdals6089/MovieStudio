@@ -4,6 +4,9 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import SingleComment from './SingleComment';
 import ReplyComment from './ReplyComment';
+import './sections.css';
+
+
 const { TextArea } = Input;
 const { Title } = Typography;
 function Comments(props) {
@@ -56,15 +59,15 @@ function Comments(props) {
                 </div>
             }
             {/* Root Comment Form */}
-            <form style={{ display: 'flex' }} onSubmit={onSubmit}>
+            <form className="commentForm" onSubmit={onSubmit}>
                 <TextArea
-                    style={{ width: '100%', borderRadius: '5px' }}
+                    className="commentTextArea"
                     onChange={handleChange}
                     value={Comment}
                     placeholder="write some comments"
                 />
                 <br />
-                <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
+                <Button className="commentBtn" onClick={onSubmit}>Submit</Button>
             </form>
         </div>
     )

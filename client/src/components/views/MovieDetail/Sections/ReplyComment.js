@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SingleComment from './SingleComment';
+import './sections.css';
 
 function ReplyComment(props) {
 
@@ -18,7 +19,7 @@ function ReplyComment(props) {
         props.CommentLists.map((comment, index) => (
             <React.Fragment>
                 {comment.responseTo === parentCommentId &&
-                    <div style={{ width: '80%', marginLeft: '40px' }}>
+                    <div className="replyCommentDiv">
                         <SingleComment comment={comment} postId={props.postId} refreshFunction={props.refreshFunction} />
                         <ReplyComment CommentLists={props.CommentLists} parentCommentId={comment._id} postId={props.postId} refreshFunction={props.refreshFunction} />
                     </div>

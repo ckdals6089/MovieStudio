@@ -1,0 +1,13 @@
+.detailDiv {
+  width: 85%;
+  margin: 1rem auto;
+}
+.detailDivDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+.detailActorGridDiv {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}

@@ -3,6 +3,7 @@ import { Comment, Avatar, Button, Input } from 'antd';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import LikeDislikes from './LikeDislikes';
+import './sections.css';
 const { TextArea } = Input;
 function SingleComment(props) {
     const user = useSelector(state => state.user);
@@ -56,15 +57,15 @@ function SingleComment(props) {
                 }
             ></Comment>
             {OpenReply &&
-                <form style={{ display: 'flex' }} onSubmit={onSubmit}>
+                <form className="singleCommentForm" onSubmit={onSubmit}>
                     <TextArea
-                        style={{ width: '100%', borderRadius: '5px' }}
+                        className="singleCommentTextArea"
                         onChange={handleChange}
                         value={CommentValue}
                         placeholder="write some comments"
                     />
                     <br />
-                    <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
+                    <Button className="singleCommentBtn" onClick={onSubmit}>Submit</Button>
                 </form>
             }
         </div>

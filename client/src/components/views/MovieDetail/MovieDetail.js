@@ -9,6 +9,7 @@ import GridCards from '../Commons/GridCards';
 import MainImage from '../Commons/MainImage';
 import MovieInfo from './Sections/MovieInfo';
 import Favorite from './Sections/Favorite';
+import './movieDetail.css';
 
 function MovieDetailPage(props) {
     const movieId = props.match.params.movieId
@@ -76,8 +77,8 @@ function MovieDetailPage(props) {
                 <div>loading...</div>
             }
             {/* Body */}
-            <div style={{ width: '85%', margin: '1rem auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div className="detailDiv">
+                <div className="detailDivDiv">
                     <Favorite movieInfo={Movie} movieId={movieId} userFrom={localStorage.getItem('userId')} />
                 </div>
 
@@ -89,7 +90,7 @@ function MovieDetailPage(props) {
                 }
                 <br />
                 {/* Actors Grid*/}
-                <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem' }}>
+                <div className="detailActorGridDiv">
                     <Button onClick={toggleActorView}>Toggle Actor View </Button>
                 </div>
                 {ActorToggle &&

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Tooltip, Icon } from 'antd';
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
-
+import './sections.css';
 function LikeDislikes(props) {
     const user = useSelector(state => state.user)
 
@@ -124,7 +124,7 @@ function LikeDislikes(props) {
                         theme={LikeAction === 'liked' ? 'filled' : 'outlined'}
                         onClick={onLike} />
                 </Tooltip>
-                <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Likes}</span>
+                <span className="likeDislikesSpan">{Likes}</span>
             </span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span key="comment-basic-dislike">
                 <Tooltip title="Dislike">
@@ -134,7 +134,7 @@ function LikeDislikes(props) {
                         onClick={onDisLike}
                     />
                 </Tooltip>
-                <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Dislikes}</span>
+                <span className="likeDislikesSpan">{Dislikes}</span>
             </span>
         </React.Fragment>
     )

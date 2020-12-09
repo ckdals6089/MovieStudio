@@ -1,0 +1,39 @@
+/* Comment */
+.commentForm {
+  display: flex;
+}
+.commentTextArea {
+  width: 100%;
+  border-radius: 5px;
+}
+.commentBtn {
+  width: 20%;
+  height: 52px;
+}
+
+/* Reply Comment */
+
+.replyCommentDiv {
+  width: 80%;
+  margin-left: 40px;
+}
+
+/* single Comment */
+
+.singleCommentForm {
+  display: flex;
+}
+.singleCommentTextArea {
+  width: 100%;
+  border-radius: 5px;
+}
+.singleCommentBtn {
+  width: 20%;
+  height: 52px;
+}
+/* Like and Dislike */
+
+.likeDislikesSpan {
+  padding-left: 8px;
+  cursor: auto;
+}
